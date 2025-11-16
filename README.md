@@ -93,7 +93,11 @@ for now eail otp is disabled
 # VISIST LIVE SITE HERE
 
 [Visit live site](https://plp-final-project-mern.vercel.app)
+
+# VIDEO PRESENTATION
 [vIDEO PRESENTATION](https://www.canva.com/design/DAG4pvW5bwE/uHQiVhdqQC_wyZD4x1hg9w/edit?utm_content=DAG4pvW5bwE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+# PITCH DECK
 [PITCH DECK](https://www.canva.com/design/DAG4pvW5bwE/uHQiVhdqQC_wyZD4x1hg9w/edit?utm_content=DAG4pvW5bwE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## 🛠️ Setup Instructions
