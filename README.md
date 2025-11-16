@@ -76,18 +76,17 @@ plp_final_project_MERN/
 ```
 
 **Project images**
-for now eail otp is disabled
 (home page)
-<img  src="./images/home.png"/>
+<img  src="./images/home.png" styele="width:100%; height:100%;/>
 
 (Register page)
-<img src="./images/register.png"/> 
+<img src="./images/register.png" styele="width:100%; height:100%;/> 
 
 (Login page)
-<img src="./images/login.png"/>
+<img src="./images/login.png" styele="width:100%; height:100%;/>
 
 (User Dashboard page)
-<img src="./images/dashboard.png"/>
+<img src="./images/dashboard.png" styele="width:100%; height:100%;/>
 
 # VISIST LIVE SITE HERE
 
