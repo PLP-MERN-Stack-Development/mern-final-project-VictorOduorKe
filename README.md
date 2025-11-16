@@ -77,16 +77,16 @@ plp_final_project_MERN/
 
 **Project images**
 (home page)
-<img  src="./images/home.png" styele="width:100%; height:100%;/>
+<img  src="./images/home.png" style="width:100%; height:100%;/>
 
 (Register page)
-<img src="./images/register.png" styele="width:100%; height:100%;/> 
+<img src="./images/register.png" style="width:100%; height:100%;/> 
 
 (Login page)
-<img src="./images/login.png" styele="width:100%; height:100%;/>
+<img src="./images/login.png" style="width:100%; height:100%;/>
 
 (User Dashboard page)
-<img src="./images/dashboard.png" styele="width:100%; height:100%;/>
+<img src="./images/dashboard.png" style="width:100%; height:100%;/>
 
 # VISIST LIVE SITE HERE
 
