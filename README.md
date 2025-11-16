@@ -27,7 +27,7 @@ An interactive MERN stack application for generating and managing personalized s
 ## 🎯 Project Presentation & Pitch
 
 ### Pitch Deck
-[View the pitch deck](https://www.canva.com/design/DAG3ovkAhs8/n2Q-ftdXH5b8CbiqhO1umQ/edit?utm_content=DAG3ovkAhs8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+[View the pitch deck](https://www.canva.com/design/DAG4pvW5bwE/uHQiVhdqQC_wyZD4x1hg9w/edit?utm_content=DAG4pvW5bwE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ### Demo Video
 A 5-10 minute video walkthrough of the application showcasing key features is available upon request. The demo covers:
