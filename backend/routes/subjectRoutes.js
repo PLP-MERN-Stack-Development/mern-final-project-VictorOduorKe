@@ -1,0 +1,109 @@
+// backend/routes/subjectRoutes.js
+import  express  from"express";
+import  Subject  from"../models/Subject.js";
+import  Payment from'../models/Payment.js'
+import  Plan from"../models/Plan.js"
+const router = express.Router();
+import  {protect,authorizeRoles} from'../middleware/authMiddleware.js';
+import  {hideConsoleLogInProduction} from"../lib/helper.js";
+import  {verifyToken} from"../lib/jwt.lib.js";
+// ✅ Get subjects by user ID
+router.get("/subjects", protect, async (req, res) => {
+  try {
+    const { user_id } = req.query;
+    hideConsoleLogInProduction('Fetching subjects for user:', user_id);
+    
+    if (!user_id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    // Verify the authenticated user is requesting their own subjects
+    if (user_id !== req.user.id.toString()) {
+      hideConsoleLogInProduction('User ID mismatch:', { requestedId: user_id, authenticatedId: req.user.id });
+      return res.status(403).json({ message: "Not authorized to access these subjects" });
+    }
+
+    const subjects = await Subject.find({ user_id });
+    hideConsoleLogInProduction('Subjects found:', subjects.length);
+    res.json(subjects);
+  } catch (err) {
+   hideConsoleLogInProduction("Error fetching subjects:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ✅ Add a new subject
+router.post("/subject", protect, authorizeRoles("user", "admin"), async (req, res) => {
+  try {
+    const { subject_name, education_level, class_level, user_id } = req.body;
+
+    // Validate required fields
+    if (!subject_name || !education_level || !class_level || !user_id) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // ✅ Count number of subjects the user already has
+    const totalSubjects = await Subject.countDocuments({ user_id });
+
+    // ✅ Check if user has a payment
+    const paymentExists = await Payments.exists({ user_id, status: "paid" });
+
+    // ✅ Restrict free users to 2 subjects max
+    if (!paymentExists && totalSubjects >= 2) {
+      return res.status(403).json({
+        message: "You have reached the free subject limit. Please upgrade to add more subjects."
+      });
+    }
+
+    // ✅ Save new subject
+    const newSubject = new Subject({
+      subject_name,
+      education_level,
+      class_level,
+      user_id,
+    });
+
+    const savedSubject = await newSubject.save();
+    return res.status(201).json(savedSubject);
+
+  } catch (err) {
+   hideConsoleLogInProduction("❌ Error adding subject:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ✅ Get subjects by user ID
+router.get("/subjects", protect, async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    
+    if (!user_id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const subjects = await Subject.find({ user_id });
+    res.status(200).json(subjects);
+  } catch (err) {
+   hideConsoleLogInProduction("❌ Error fetching subjects:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ✅ Delete a subject
+router.delete("/subjects/:id", protect, authorizeRoles("user", "admin"), async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Delete the subject
+    await Subject.findByIdAndDelete(id);
+
+    // Delete all plans linked to that subject
+    await Plan.deleteMany({ subject_id: id });
+
+    res.status(200).json({ message: "Subject and related plans deleted successfully" });
+  } catch (err) {
+   hideConsoleLogInProduction("❌ Error deleting subject:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+export default router;

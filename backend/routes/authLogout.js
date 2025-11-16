@@ -1,0 +1,22 @@
+import express  from "express";
+const router = express.Router();
+import {hideConsoleLogInProduction} from "../lib/helper.js";
+// POST /auth/logout
+router.post("/logout", (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/", // ✅ important — cookie path must match
+      maxAge: 0,
+    });
+
+    hideConsoleLogInProduction("User logged out");
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (err) {
+    hideConsoleLogInProduction("Logout error:", err);
+    return res.status(500).json({ message: "Server error during logout" });
+  }
+});
+export default router;
